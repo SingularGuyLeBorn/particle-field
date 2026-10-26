@@ -219,3 +219,61 @@
 
 - 2026-10：主展厅 42 件与开放库房 100 件批量导出 GLB；Meshopt 压缩；贴图转 WebP 并限制到 512/1024 px；减面比例 0.35–0.85；统一尺度与朝向；部分青铜模型在源网格无贴图时使用铜色 PBR 材质。开放库房模型按 0.66 m / 0.54 m 双层展示尺寸归一化。
 - 未对文物几何做“修复”或“补全”，破损与缺失保持源模型状态。
+
+
+## 山海神兽 · MYTHIC BEASTS（50 件，2026-10-27）
+
+本批 50 件神兽来自 [Poly Pizza](https://poly.pizza/) 的 CC0 / CC-BY 3.0 模型，经几何清理、减面与 Meshopt 压缩后，去除原贴图并统一为数字青铜材质；全息点云由同一几何重采样。逐件来源如下：
+
+| 名称 | English | 文件 | 作者 | 许可 | 来源 |
+| --- | --- | --- | --- | --- | --- |
+| 青龙 | Azure Dragon | azure-dragon.glb | Tomek Zamojski | CC-BY 3.0 | https://poly.pizza/m/5SgYrV6nhws |
+| 白虎 | White Tiger | white-tiger.glb | jeremy | CC-BY 3.0 | https://poly.pizza/m/54KLm0HdFWy |
+| 朱雀 | Vermilion Bird | vermilion-bird.glb | Robert Mirabelle | CC-BY 3.0 | https://poly.pizza/m/1Z5L1v0bfu7 |
+| 玄武 | Black Tortoise | black-tortoise.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/2LCcq8vhqJ3 |
+| 应龙 | Yinglong | yinglong.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/LlwD0QNUPj |
+| 烛龙 | Zhulong | zhulong.glb | Emmett "TawpShelf" Baber | CC-BY 3.0 | https://poly.pizza/m/esNK-8cq6mr |
+| 螭龙 | Chilong | chilong.glb | sugamo | CC-BY 3.0 | https://poly.pizza/m/4pQiM7_T-NA |
+| 虬龙 | Qiulong | qiulong.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/3rUm1cN3yp |
+| 蛟龙 | Jiaolong | jiaolong.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/aQ6YU1JK1wC |
+| 蟠龙 | Panlong | panlong.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/VBvzjFIYws |
+| 云龙 | Yunlong | yunlong.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/gZ2ExU9OAB |
+| 巴蛇 | Ba Serpent | bashe.glb | NatureStudioz | CC-BY 3.0 | https://poly.pizza/m/QFBVG1uv5a |
+| 腾蛇 | Teng Serpent | tengshe.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/37rHvkGh3nT |
+| 化蛇 | Hua Serpent | huashe.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/8x5KqsvbHUO |
+| 毕方 | Bifang | bifang.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/dazPSSmELaQ |
+| 重明鸟 | Chongming Bird | chongming.glb | Sherkiz | CC-BY 3.0 | https://poly.pizza/m/RkN6MEbP6g |
+| 英招 | Yingzhao | yingzhao.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/35EeLqGHH1y |
+| 蛊雕 | Gu Diao | gudiao.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/fvAgunyr1kd |
+| 青鸾 | Qingluan | qingluan.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/0eT216MLaus |
+| 橐蜚 | Tuofei | tuofei.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/ineV9pU5VL |
+| 狻猊 | Suanni | suanni.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/3XAJojWxSWz |
+| 貔貅 | Pixiu | pixiu.glb | jeremy | CC-BY 3.0 | https://poly.pizza/m/cC_IFclYA4c |
+| 獬豸 | Xiezhi | xiezhi.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/4fb-oMr2uUF |
+| 白泽 | Baize | baize.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/8nuCN-gn2s- |
+| 陆吾 | Lu Wu | luwu.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/5y59KqZXxWf |
+| 开明兽 | Kaiming Beast | kaiming.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/dKDEjAwfh0I |
+| 狰 | Zheng | zheng.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/8KQ6ilys4oL |
+| 霸下 | Baxia | baxia.glb | Crispy_Prawn | CC-BY 3.0 | https://poly.pizza/m/4kQR07PFTq |
+| 赑屃 | Bixi | bixi.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/fklSEvGm1Q8 |
+| 旋龟 | Xuangui | xuangui.glb | jeremy | CC-BY 3.0 | https://poly.pizza/m/0Sylqo1dCfu |
+| 鲲 | Kun | kun.glb | Anthony Lever | CC-BY 3.0 | https://poly.pizza/m/3a9GVBBAMs1 |
+| 赤鱬 | Chi Ru | chiru.glb | Michael Zhong | CC-BY 3.0 | https://poly.pizza/m/2pehCIARR11 |
+| 文鳐鱼 | Wen Yao Fish | wenyao.glb | Timothy 'YM' Johnson | CC-BY 3.0 | https://poly.pizza/m/bUjvcUjUIfi |
+| 何罗鱼 | He Luo Fish | heluo.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/YYsK3gRCBZ |
+| 陵鱼 | Ling Fish | lingyu.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/UKHtgpxTOk |
+| 鹿蜀 | Lu Shu | lushu.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/tQdzbZ1Cmw |
+| 夫诸 | Fu Zhu | fuzhu.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/T6Cs7tmMHJ |
+| 天马 | Heavenly Horse | tianma.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/bEdE4rmZy9 |
+| 诸怀 | Zhu Huai | zhuhuai.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/a8PIIYwF7r |
+| 犀渠 | Xi Qu | xiqu.glb | Tom VanAntwerp | CC-BY 3.0 | https://poly.pizza/m/9deYXdpoeTC |
+| 象蛇 | Xiang She | xiangshe.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/a27MA0rXyyj |
+| 麒麟 | Qilin | qilin.glb | Thomas DR | CC-BY 3.0 | https://poly.pizza/m/6pM6hFiGolw |
+| 饕餮 | Taotie | taotie.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/B8HrWzkuNp |
+| 混沌 | Hundun | hundun.glb | Anonymous | CC-BY 3.0 | https://poly.pizza/m/6Xd-zf5zCGu |
+| 梼杌 | Taowu | taowu.glb | Hoai Nguyen | CC-BY 3.0 | https://poly.pizza/m/6ybhT9b43Ys |
+| 穷奇 | Qiongqi | qiongqi.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/XU7oNeKShV |
+| 九尾狐 | Nine-tailed Fox | jiuweihu.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/Bc97C66HKi |
+| 朱厌 | Zhu Yan | zhuyan.glb | Poly by Google | CC-BY 3.0 | https://poly.pizza/m/0yRz2AkLuuo |
+| 天狗 | Heavenly Dog | tiangou.glb | Quaternius | CC0 1.0 | https://poly.pizza/m/wcWiuEqwzq |
+| 土蝼 | Tu Lou | tulou.glb | Anonymous | CC-BY 3.0 | https://poly.pizza/m/f5YYKuZ9qs2 |
