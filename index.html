@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Particle Field — WebGPU / TSL 粒子模拟器</title>
+    <meta
+      name="description"
+      content="一个电影式暗场里的 262,144 粒子 GPU 模拟，一座可第一人称漫游、带 146 件真实 GLB 馆藏与开放库房的万象博物馆，以及一台双源合成工坊。基于 three.js WebGPU + TSL compute。"
+    />
+    <meta name="theme-color" content="#f2efe8" />
+    <meta property="og:title" content="Particle Field — WebGPU / TSL particle simulator" />
+    <meta
+      property="og:description"
+      content="A 262k-particle GPU attractor field, a walkable museum of 146 real GLB exhibits with a visible-storage archive, a holographic collection of twenty Sanxingdui and Shang bronzes, and a twin-emitter forge. three.js WebGPU + TSL compute."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <script type="module" crossorigin src="./assets/index-C2FJs0a6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CP4ZW13E.css">
+  </head>
+  <body>
+    <main class="page">
+      <aside class="sidebar">
+        <header class="masthead">
+          <span class="mark" aria-hidden="true"></span>
+          <p class="masthead__name">Particle Field</p>
+          <p class="masthead__meta">001 / 2026</p>
+        </header>
+
+        <div class="intro">
+          <p class="eyebrow">WebGPU · TSL · Compute</p>
+          <h1>Particle<br /><em>Field</em><sup>01</sup></h1>
+          <p class="lede">
+            一个在电影式暗场里呼吸的 GPU 粒子场。粒子会随指针流动、拉出长尾，再靠物理阻尼回聚。
+          </p>
+          <div class="lab-entries">
+            <a class="holo-entry" href="?preset=holo">
+              <span>进入全息馆藏 · 20 件</span>
+              <span aria-hidden="true">Hologram →</span>
+            </a>
+            <a class="holo-entry forge-entry" href="?preset=forge">
+              <span>进入合成工坊 · 双源</span>
+              <span aria-hidden="true">Forge →</span>
+            </a>
+            <a class="holo-entry museum-entry" href="?preset=museum">
+              <span>进入万象博物馆 · 146 件</span>
+              <span aria-hidden="true">Museum →</span>
+            </a>
+          </div>
+        </div>
+
+        <dl class="specs">
+          <div>
+            <dt data-count-label>Simulation</dt>
+            <dd data-particle-count>262,144 particles</dd>
+          </div>
+          <div>
+            <dt>Runtime</dt>
+            <dd>three.js r186 / WebGPU</dd>
+          </div>
+          <div>
+            <dt>Method</dt>
+            <dd>TSL compute attractors</dd>
+          </div>
+        </dl>
+
+        <footer class="sidebar__foot">
+          <div class="controls">
+            <p class="label">Controls</p>
+            <ul class="controls__list--field">
+              <li><span class="key">Move</span><span>牵引 / 扰动</span></li>
+              <li><span class="key">Hold</span><span>局部推开</span></li>
+              <li><span class="key">RMB</span><span>旋转视角</span></li>
+              <li><span class="key">R</span><span>重置</span></li>
+            </ul>
+            <ul class="controls__list--museum">
+              <li><span class="key">WASD</span><span>走动</span></li>
+              <li><span class="key">Drag</span><span>环顾</span></li>
+              <li><span class="key">Shift</span><span>加速</span></li>
+              <li><span class="key">Tour</span><span>9 站导览</span></li>
+            </ul>
+          </div>
+          <button
+            class="params-toggle"
+            id="params-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="params-panel"
+            disabled
+          >
+            <span class="params-toggle__text">Parameters <span>参数</span></span>
+            <span class="params-toggle__key">P</span>
+          </button>
+        </footer>
+        <p class="credit">Open source · MIT license</p>
+      </aside>
+
+      <section class="stage" aria-label="Interactive particle field">
+        <div id="canvas-mount" class="stage__canvas"></div>
+
+        <div class="stage__overlay" aria-hidden="true">
+          <div class="stage__top">
+            <p class="stage__tag"><span class="live-dot"></span><span id="stage-tag-text">Cinema field / live</span></p>
+            <p class="stage__node" id="stage-node">08 <span>/</span> 10</p>
+          </div>
+
+          <p class="stage__hint" id="hint"><span></span><span id="hint-text">Move to draw the field</span></p>
+
+          <div class="stage__bottom">
+            <p id="stage-status" data-particle-count>262,144 particles</p>
+            <p><span id="fps-value">60</span> fps</p>
+          </div>
+        </div>
+
+        <aside class="holo-label" id="holo-label" aria-live="polite">
+          <div class="holo-label__rail">
+            <span class="holo-label__index" id="holo-index">01 / 20</span>
+            <span class="holo-label__category" id="holo-category">馆藏</span>
+            <span class="holo-label__palette" id="holo-palette" aria-hidden="true"></span>
+            <span class="holo-label__live"><i></i>Holographic exhibit</span>
+          </div>
+          <h2 class="holo-label__name" id="holo-name">正在调取馆藏</h2>
+          <p class="holo-label__meta">
+            <span id="holo-en">Loading collection</span>
+            <span aria-hidden="true">·</span>
+            <span id="holo-era">点云加载中</span>
+          </p>
+          <p class="holo-label__desc" id="holo-desc">
+            正在读取博物馆扫描件，请稍候。
+          </p>
+          <p class="holo-label__credit" id="holo-credit"></p>
+          <div class="holo-label__actions">
+            <span class="holo-label__mode" id="holo-mode">IN STASIS · 呼吸</span>
+            <button class="holo-label__next" id="holo-next" type="button">
+              <span>下一件</span>
+              <span aria-hidden="true">Next →</span>
+            </button>
+          </div>
+          <div class="holo-label__meter"><i id="holo-meter"></i></div>
+        </aside>
+
+        <aside class="forge-hud" id="forge-hud" aria-live="polite">
+          <div class="forge-hud__rail">
+            <span class="forge-hud__bay">FORGE BAY · 双源合成台</span>
+            <span class="forge-hud__status" id="forge-status">STANDBY</span>
+          </div>
+          <h2 class="forge-hud__title" id="forge-title">合成工作台</h2>
+          <p class="forge-hud__lead" id="forge-lead">
+            两件真实扫描分别悬浮在左右发生装置上。选择合成或升级，观察点云在电影运镜下被重新组织。
+          </p>
+          <div class="forge-tabs" role="tablist" aria-label="工作台模式">
+            <button class="forge-tab is-active" type="button" role="tab" aria-selected="true" data-forge-step="synthesis">
+              <span>合成</span><span>Synthesis</span>
+            </button>
+            <button class="forge-tab" type="button" role="tab" aria-selected="false" data-forge-step="upgrade">
+              <span>升级</span><span>Upgrade</span>
+            </button>
+          </div>
+          <div class="forge-recipe" id="forge-recipe">
+            <div class="forge-node" data-forge-slot="a">
+              <span class="forge-node__key">A</span>
+              <span class="forge-node__name" id="forge-source-a">青铜纵目面具</span>
+              <span class="forge-node__meta" id="forge-source-a-meta">真实扫描</span>
+            </div>
+            <span class="forge-op" id="forge-op-plus">+</span>
+            <div class="forge-node" data-forge-slot="b" id="forge-node-b">
+              <span class="forge-node__key">B</span>
+              <span class="forge-node__name" id="forge-source-b">青铜大立人</span>
+              <span class="forge-node__meta" id="forge-source-b-meta">真实扫描</span>
+            </div>
+            <span class="forge-op" id="forge-op-arrow">→</span>
+            <div class="forge-node forge-node--result" data-forge-slot="c">
+              <span class="forge-node__key">C</span>
+              <span class="forge-node__name" id="forge-result">青铜神树</span>
+              <span class="forge-node__meta" id="forge-result-meta">合成结果</span>
+            </div>
+          </div>
+          <div class="forge-actions">
+            <button class="forge-run" id="forge-run" type="button" disabled>
+              <span id="forge-run-label">启动合成</span>
+              <span class="forge-run__en" id="forge-run-en">Run synthesis</span>
+            </button>
+            <button class="forge-reset" id="forge-reset" type="button" hidden>
+              <span>重置</span><span>Reset</span>
+            </button>
+          </div>
+          <div class="forge-meter"><i id="forge-meter"></i></div>
+          <p class="forge-note" id="forge-note">A + B → C · 真实扫描点云 · 非程序化生成</p>
+          <p class="forge-loading" id="forge-loading">正在调取三件扫描件…</p>
+        </aside>
+
+        <div class="sequence-bars" id="sequence-bars" aria-hidden="true">
+          <i></i><i></i>
+        </div>
+        <div class="sequence-tag" id="sequence-tag" aria-hidden="true">
+          <span></span> CINEMA CAMERA <b id="sequence-mode">SYNTHESIS</b>
+        </div>
+        <div class="sequence-progress" aria-hidden="true">
+          <i id="sequence-progress"></i>
+        </div>
+
+        <aside class="forge-result-panel" id="forge-result-panel" aria-live="polite">
+          <p class="forge-result-panel__eyebrow">
+            <span></span><b id="forge-result-eyebrow">SYNTHESIS COMPLETE</b>
+          </p>
+          <h3 class="forge-result-panel__title" id="forge-result-title">青铜神树</h3>
+          <p class="forge-result-panel__en" id="forge-result-en">Sacred bronze tree</p>
+          <p class="forge-result-panel__note" id="forge-result-note">
+            双源点云已完成重组。
+          </p>
+          <button class="forge-result-panel__reset" id="forge-result-reset" type="button">
+            <span>重置工作台</span><span aria-hidden="true">Reset →</span>
+          </button>
+        </aside>
+
+        <aside class="museum-hud" id="museum-hud" aria-live="polite">
+          <div class="museum-hud__panel">
+          <div class="museum-hud__rail">
+            <span class="museum-hud__stamp"><i aria-hidden="true"></i>PARTICLE FIELD · 001/2026</span>
+            <span class="museum-hud__rail-end">
+              <span id="museum-status">ASSEMBLING · MAIN HALL</span>
+              <a class="museum-hud__exit" href="?preset=cinema" aria-label="退出博物馆，返回粒子场">退出 ↗</a>
+            </span>
+          </div>
+          <p class="museum-hud__archive" id="museum-archive-status" hidden>ARCHIVE · 0/104</p>
+          <p class="museum-hud__archive" id="museum-hall-status" hidden>MAIN HALL · 0/42</p>
+          <div class="museum-hud__main">
+            <div class="museum-hud__intro">
+              <p class="museum-hud__kicker">OPEN COLLECTION / 开放馆藏</p>
+              <h2 class="museum-hud__title">万象博物馆</h2>
+              <p class="museum-hud__sub">古蜀青铜 · 自然史 · 太空时代 · 开放库房</p>
+            </div>
+            <div class="museum-hud__nav">
+              <div class="museum-zones" role="group" aria-label="展厅导航">
+                <button type="button" data-museum-zone="bronze">I 古蜀青铜</button>
+                <button type="button" data-museum-zone="nature">II 自然史</button>
+                <button type="button" data-museum-zone="space">III 太空时代</button>
+                <button type="button" data-museum-zone="archive">IV 开放库房</button>
+              </div>
+              <div class="museum-actions">
+                <button class="museum-action museum-action--tour" id="museum-tour" type="button">
+                  <span>自动导览</span><span>Guided tour</span>
+                </button>
+                <button class="museum-action" id="museum-free" type="button">
+                  <span>回到入口</span><span>Reset</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="museum-tourbar" id="museum-tourbar" hidden>
+            <span id="museum-tour-stage">GUIDED TOUR</span>
+            <div class="museum-tourbar__track"><i id="museum-tour-fill"></i></div>
+            <button id="museum-tour-stop" type="button">结束导览</button>
+          </div>
+          <article class="museum-info" id="museum-info">
+            <div class="museum-info__head">
+              <span id="museum-info-index">146 OBJECTS</span>
+              <span id="museum-info-wing">OPEN COLLECTION</span>
+            </div>
+            <h3 id="museum-info-name">万象博物馆</h3>
+            <p class="museum-info__en" id="museum-info-en">The Panorama Museum</p>
+            <p class="museum-info__meta" id="museum-info-meta">四座展厅 · 146 件开放馆藏</p>
+            <p class="museum-info__desc" id="museum-info-desc">
+              沿中轴前行，经过古蜀青铜、自然史、太空时代展厅，最后进入两壁密集展柜的开放库房。靠近展品可查看介绍，也可以点上方按钮开始自动导览。
+            </p>
+            <p class="museum-info__credit" id="museum-info-credit">全部展品均来自开放授权来源</p>
+          </article>
+          <div class="museum-hud__hint" id="museum-hint">
+            WASD 移动 · 拖动鼠标看展 · Shift 加速
+          </div>
+        </aside>
+
+        <div class="museum-joystick" id="museum-joystick" aria-hidden="true">
+          <i id="museum-joystick-knob"></i>
+        </div>
+
+        <div class="museum-archive-warmup" id="museum-archive-warmup" hidden>
+          <p>VISIBLE STORAGE · 104 OBJECTS</p>
+          <h3>开放库房</h3>
+          <p>黑场 → 发光网格 → 逐柜显影</p>
+        </div>
+
+        <div class="museum-hall-warmup" id="museum-hall-warmup" hidden>
+          <p>MAIN HALL · 42 OBJECTS</p>
+          <h3>主展厅</h3>
+          <p>黑场 → 发光网格 → 水波显影</p>
+        </div>
+
+        <div class="museum-loading" id="museum-loading" hidden>
+          <p class="museum-loading__kicker">ASSEMBLING THE GALLERY</p>
+          <h2>正在装配展厅</h2>
+          <p id="museum-loading-text">调取主展厅 42 件数字馆藏…</p>
+          <div class="museum-loading__track"><i id="museum-loading-fill"></i></div>
+        </div>
+
+        <div class="museum-welcome" id="museum-welcome" hidden>
+          <p class="museum-welcome__kicker">THE PANORAMA MUSEUM</p>
+          <h2>万象博物馆</h2>
+          <p class="museum-welcome__lead">
+            146 件开放馆藏，四座展厅。展厅已开放，馆藏采用渐进式加载：可以立即进入，展品会陆续到位；也可以稍候片刻再开始自动导览。
+          </p>
+          <p class="museum-welcome__progress" id="museum-welcome-progress">正在装配主展厅馆藏 · 可先进入</p>
+          <div class="museum-welcome__actions">
+            <button id="museum-enter" type="button">自由漫游</button>
+            <button id="museum-welcome-tour" type="button">自动导览</button>
+          </div>
+          <p class="museum-welcome__hint">WASD 移动 · 拖动看展 · Shift 加速 · 自动导览可随时结束</p>
+        </div>
+
+        <svg class="holo-filter-defs" aria-hidden="true" focusable="false">
+          <filter id="holo-water" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.006 0.012" numOctaves="2" seed="4" result="noise">
+              <animate attributeName="baseFrequency" dur="18s" values="0.006 0.012;0.008 0.009;0.006 0.012" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
+
+        <div class="boot" id="boot">
+          <div class="boot__inner">
+            <p class="boot__label">Particle Field</p>
+            <p class="boot__status">Initializing GPU compute</p>
+            <div class="boot__bar"><i></i></div>
+          </div>
+        </div>
+
+        <div class="fallback" id="fallback" hidden>
+          <div class="fallback__card">
+            <p class="fallback__label">WebGPU required</p>
+            <h2>这个演示需要 WebGPU</h2>
+            <p>请使用 Chrome / Edge 113+ 或其它支持 WebGPU 的浏览器，并确认已开启硬件加速。</p>
+            <p class="fallback__reason" data-reason></p>
+            <a href="https://developer.chrome.com/docs/web-platform/webgpu" target="_blank" rel="noreferrer">
+              了解 WebGPU →
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <noscript>
+      <div class="noscript">
+        <div class="fallback__card">
+          <p class="fallback__label">JavaScript required</p>
+          <h2>需要启用 JavaScript</h2>
+          <p>这是一个实时 GPU 粒子演示，请启用 JavaScript 后刷新页面。</p>
+        </div>
+      </div>
+    </noscript>
+
+    <div class="panel-scrim" id="panel-scrim" aria-hidden="true"></div>
+    <aside class="panel" id="params-panel" aria-hidden="true" aria-label="Particle parameters">
+      <header class="panel__head">
+        <div>
+          <p class="panel__kicker">Live controls</p>
+          <h2 class="panel__title">Parameters</h2>
+        </div>
+        <button class="panel__close" id="params-close" type="button" aria-label="Close parameters">
+          <span>Close</span>
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
+
+      <div class="panel__presets">
+        <p class="panel__caption">Presets</p>
+        <div class="presets" id="preset-list"></div>
+        <p class="panel__description" id="preset-description"></p>
+      </div>
+
+      <div class="panel__body" id="params-body"></div>
+
+      <footer class="panel__foot">
+        <button class="panel__action" type="button" data-action="reset">Reset field</button>
+        <button class="panel__action" type="button" data-action="defaults">Restore defaults</button>
+      </footer>
+    </aside>
+
+  </body>
+</html>
