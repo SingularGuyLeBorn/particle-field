@@ -1,5 +1,5 @@
 # Particle Field — static mirror
 
-Built static mirror of the Particle Field WebGPU museum.
+Built static mirror of the Particle Field WebGPU museum (500 objects, six halls).
 
-Primary IPFS mirror: https://1131ad6b.pinme.dev/
+Primary IPFS mirror: https://b8101078.pinme.dev/

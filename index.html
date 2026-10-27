@@ -6,18 +6,18 @@
     <title>Particle Field — WebGPU / TSL 粒子模拟器</title>
     <meta
       name="description"
-      content="一个电影式暗场里的 262,144 粒子 GPU 模拟，一座可第一人称漫游、带 196 件真实 GLB 馆藏与开放库房的万象博物馆，以及一台双源合成工坊。基于 three.js WebGPU + TSL compute。"
+      content="一个电影式暗场里的 262,144 粒子 GPU 模拟，一座可第一人称漫游、带 500 件真实 GLB 馆藏与开放库房的万象博物馆，以及一台双源合成工坊。基于 three.js WebGPU + TSL compute。"
     />
     <meta name="theme-color" content="#f2efe8" />
     <meta property="og:title" content="Particle Field — WebGPU / TSL particle simulator" />
     <meta
       property="og:description"
-      content="A 262k-particle GPU attractor field, a walkable museum of 196 real GLB exhibits with a visible-storage archive and fifty mythic beasts, a holographic collection, and a twin-emitter forge. three.js WebGPU + TSL compute."
+      content="A 262k-particle GPU attractor field, a walkable museum of 500 real GLB exhibits with a visible-storage archive and fifty mythic beasts, a holographic collection, and a twin-emitter forge. three.js WebGPU + TSL compute."
     />
     <meta property="og:type" content="website" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <script type="module" crossorigin src="./assets/index-DCEUka-l.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-naF-qGjo.css">
+    <script type="module" crossorigin src="./assets/index-Bzj3DEON.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bo5qGo9g.css">
   </head>
   <body>
     <main class="page">
@@ -44,7 +44,7 @@
               <span aria-hidden="true">Forge →</span>
             </a>
             <a class="holo-entry museum-entry" href="?preset=museum">
-              <span>进入万象博物馆 · 196 件</span>
+              <span>进入万象博物馆 · 500 件</span>
               <span aria-hidden="true">Museum →</span>
             </a>
           </div>
@@ -226,11 +226,12 @@
           <p class="museum-hud__archive" id="museum-archive-status" hidden>ARCHIVE · 0/104</p>
           <p class="museum-hud__archive" id="museum-hall-status" hidden>MAIN HALL · 0/42</p>
           <p class="museum-hud__archive" id="museum-beast-status" hidden>BEASTS · 0/50</p>
+          <p class="museum-hud__archive" id="museum-depot-status" hidden>DEPOT · 0/304</p>
           <div class="museum-hud__main">
             <div class="museum-hud__intro">
               <p class="museum-hud__kicker">OPEN COLLECTION / 开放馆藏</p>
               <h2 class="museum-hud__title">万象博物馆</h2>
-              <p class="museum-hud__sub">古蜀青铜 · 自然史 · 太空时代 · 开放库房 · 山海神兽</p>
+              <p class="museum-hud__sub">古蜀青铜 · 自然史 · 太空时代 · 开放库房 · 山海神兽 · 深层库房</p>
             </div>
             <div class="museum-hud__nav">
               <div class="museum-zones" role="group" aria-label="展厅导航">
@@ -239,6 +240,7 @@
                 <button type="button" data-museum-zone="space">III 太空时代</button>
                 <button type="button" data-museum-zone="archive">IV 开放库房</button>
                 <button type="button" data-museum-zone="beasts">V 山海神兽</button>
+                <button type="button" data-museum-zone="depot">VI 深层库房</button>
               </div>
               <div class="museum-actions">
                 <button class="museum-action museum-action--tour" id="museum-tour" type="button">
@@ -258,12 +260,12 @@
           </div>
           <article class="museum-info" id="museum-info">
             <div class="museum-info__head">
-              <span id="museum-info-index">196 OBJECTS</span>
+              <span id="museum-info-index">500 OBJECTS</span>
               <span id="museum-info-wing">OPEN COLLECTION</span>
             </div>
             <h3 id="museum-info-name">万象博物馆</h3>
             <p class="museum-info__en" id="museum-info-en">The Panorama Museum</p>
-            <p class="museum-info__meta" id="museum-info-meta">五座展厅 · 196 件开放馆藏</p>
+            <p class="museum-info__meta" id="museum-info-meta">六座展厅 · 500 件开放馆藏</p>
             <p class="museum-info__desc" id="museum-info-desc">
               沿中轴前行，经过古蜀青铜、自然史、太空时代展厅，最后进入两壁密集展柜的开放库房。靠近展品可查看介绍，也可以点上方按钮开始自动导览。
             </p>
@@ -301,7 +303,7 @@
           <p class="museum-welcome__kicker">THE PANORAMA MUSEUM</p>
           <h2>万象博物馆</h2>
           <p class="museum-welcome__lead">
-            196 件开放馆藏，五座展厅。展厅已开放，馆藏采用渐进式加载：可以立即进入，展品会陆续到位；也可以稍候片刻再开始自动导览。第五殿「山海神兽」收藏青龙、白虎、朱雀、玄武等五十件神兽。
+            500 件开放馆藏，六座展厅。展厅已开放，馆藏采用渐进式加载：可以立即进入，展品会陆续到位；也可以稍候片刻再开始自动导览。第五殿「山海神兽」收藏青龙、白虎、朱雀、玄武等五十件神兽，第六殿「深层库房」再收 304 件开放数字模型。
           </p>
           <p class="museum-welcome__progress" id="museum-welcome-progress">正在装配主展厅馆藏 · 可先进入</p>
           <div class="museum-welcome__actions">
